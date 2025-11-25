@@ -11,7 +11,7 @@ export default function Hero() {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-display font-bold text-sumi-900 mb-6 animate-fade-in">
-            Discover the Art of
+            KON
             <span className="block mt-2 text-sakura-600">Trading Cards</span>
           </h1>
           

@@ -152,7 +152,7 @@ const seedDatabase = async () => {
     if (!adminExists) {
       await User.create({
         name: 'Admin',
-        email: 'admin@wabimarket.com',
+        email: 'admin@kon.com',
         password: 'admin123',
         role: 'admin',
       })

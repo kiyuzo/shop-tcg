@@ -1,4 +1,4 @@
-# 侘 Wabi Market - Japanese TCG E-commerce Platform
+# KON - Japanese TCG E-commerce Platform
 
 A modern, minimalist e-commerce platform for trading card collectors, inspired by Japanese aesthetics (Wabi-Sabi philosophy). Built with Next.js, React, TypeScript, Tailwind CSS, Express.js, and MongoDB.
 

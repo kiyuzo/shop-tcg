@@ -15,7 +15,7 @@ export default function Footer() {
                 <span className="text-sumi-900 font-display text-xl">侘</span>
               </div>
               <span className="text-xl font-display font-semibold text-wabi-50">
-                Wabi Market
+                KON
               </span>
             </div>
             <p className="text-wabi-300 text-sm leading-relaxed">

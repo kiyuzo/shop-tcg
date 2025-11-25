@@ -20,7 +20,7 @@ const notoSerifJP = Noto_Serif_JP({
 })
 
 export const metadata: Metadata = {
-  title: 'Wabi Market - Japanese TCG Marketplace',
+  title: 'KON - Japanese TCG Marketplace',
   description: 'Discover rare trading cards with Japanese minimalist elegance',
   keywords: 'trading cards, TCG, Japanese marketplace, collectibles',
 }

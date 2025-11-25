@@ -26,7 +26,7 @@ export default function Header() {
               <span className="text-wabi-50 font-display text-xl">侘</span>
             </div>
             <span className="text-2xl font-display font-semibold text-sumi-900 hidden sm:block">
-              Wabi Market
+              KON
             </span>
           </Link>
 
