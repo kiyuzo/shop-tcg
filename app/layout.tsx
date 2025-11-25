@@ -4,6 +4,7 @@ import { Inter, Noto_Serif_JP } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import ChatBot from '@/components/ChatBot'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -37,6 +38,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <ChatBot />
         <Toaster 
           position="top-right"
           toastOptions={{
