@@ -1,0 +1,103 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-inter: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-noto-serif-jp: 'Noto Serif JP', serif;
+  }
+  
+  html {
+    @apply antialiased scroll-smooth;
+  }
+  
+  body {
+    @apply bg-wabi-50 text-sumi-900;
+  }
+}
+
+@layer components {
+  /* Japanese-inspired button styles */
+  .btn-primary {
+    @apply px-6 py-3 bg-sumi-900 text-wabi-50 rounded-none font-medium 
+           transition-all duration-300 hover:bg-sumi-800 
+           focus:outline-none focus:ring-2 focus:ring-sumi-700 focus:ring-offset-2;
+  }
+  
+  .btn-secondary {
+    @apply px-6 py-3 border-2 border-sumi-900 text-sumi-900 rounded-none 
+           font-medium transition-all duration-300 hover:bg-sumi-900 hover:text-wabi-50
+           focus:outline-none focus:ring-2 focus:ring-sumi-700 focus:ring-offset-2;
+  }
+  
+  .btn-ghost {
+    @apply px-4 py-2 text-sumi-700 rounded-none font-medium 
+           transition-all duration-300 hover:bg-sumi-100
+           focus:outline-none focus:ring-2 focus:ring-sumi-300;
+  }
+  
+  /* Card styles with wabi-sabi aesthetic */
+  .card {
+    @apply bg-white border border-sumi-200 shadow-wabi 
+           transition-all duration-300 hover:shadow-wabi-lg;
+  }
+  
+  /* Input styles */
+  .input-base {
+    @apply w-full px-4 py-3 border border-sumi-300 rounded-none
+           bg-white text-sumi-900 placeholder-sumi-400
+           focus:outline-none focus:border-sumi-900 focus:ring-1 focus:ring-sumi-900
+           transition-all duration-200;
+  }
+  
+  /* Section dividers */
+  .divider-zen {
+    @apply border-t border-sumi-200 my-8;
+  }
+  
+  /* Japanese-inspired spacing */
+  .section-spacing {
+    @apply py-16 md:py-24;
+  }
+  
+  .container-zen {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+}
+
+@layer utilities {
+  /* Text utilities */
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Japanese typography */
+  .text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+  }
+  
+  /* Smooth transitions */
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Custom scrollbar */
+  .scrollbar-zen::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .scrollbar-zen::-webkit-scrollbar-track {
+    @apply bg-wabi-100;
+  }
+  
+  .scrollbar-zen::-webkit-scrollbar-thumb {
+    @apply bg-sumi-400 rounded-none;
+  }
+  
+  .scrollbar-zen::-webkit-scrollbar-thumb:hover {
+    @apply bg-sumi-500;
+  }
+}
