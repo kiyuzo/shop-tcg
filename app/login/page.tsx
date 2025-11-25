@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { useAuthStore } from '@/store/authStore'
 import toast from 'react-hot-toast'
 import Link from 'next/link'
@@ -54,8 +55,14 @@ export default function LoginPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center justify-center mb-6">
-            <div className="w-16 h-16 bg-sumi-900 flex items-center justify-center">
-              <span className="text-wabi-50 font-display text-3xl">侘</span>
+            <div className="w-16 h-16 flex items-center justify-center">
+              <Image 
+                src="/fox-logo.png" 
+                alt="kon logo" 
+                width={64} 
+                height={64}
+                className="object-contain"
+              />
             </div>
           </Link>
           <h1 className="text-4xl font-display font-bold text-sumi-900 mb-2">

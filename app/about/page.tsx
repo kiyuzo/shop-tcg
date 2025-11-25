@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default function AboutPage() {
   return (
     <div className="bg-wabi-50">
@@ -5,15 +7,21 @@ export default function AboutPage() {
       <section className="section-spacing bg-white">
         <div className="container-zen">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-8">
-              <span className="text-7xl font-display text-sumi-200">侘寂</span>
+            <div className="mb-8 flex justify-center">
+              <Image 
+                src="/fox-logo.png" 
+                alt="kon logo" 
+                width={96} 
+                height={96}
+                className="object-contain"
+              />
             </div>
             <h1 className="text-5xl md:text-6xl font-display font-bold text-sumi-900 mb-6">
-              About Wabi Market
+              About kon
             </h1>
             <p className="text-xl text-sumi-600 leading-relaxed">
-              Where the imperfect beauty of Wabi-Sabi meets the world of trading card collecting.
-              We curate authentic, rare cards with the same care and philosophy as traditional Japanese artisans.
+              Where the spirit of the fox meets the world of trading card collecting.
+              We curate authentic, rare cards with care and dedication to quality.
             </p>
           </div>
         </div>
@@ -65,12 +73,12 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-6 text-sumi-700 leading-relaxed">
               <p>
-                Wabi Market was born from a love of trading cards and an appreciation for Japanese minimalist design.
-                We believe that collecting should be a thoughtful, intentional practice—much like the tea ceremony or flower arrangement.
+                kon was born from a love of trading cards and an appreciation for Japanese minimalist design.
+                We believe that collecting should be a thoughtful, intentional practice—a journey of discovery and passion.
               </p>
               <p>
-                The concept of Wabi-Sabi celebrates the beauty in imperfection and impermanence. Similarly, each trading card
-                tells its own story through its condition, rarity, and journey to your collection.
+                Each trading card tells its own story through its condition, rarity, and journey to your collection.
+                We honor that story by providing a platform that celebrates authenticity and quality.
               </p>
               <p>
                 Our platform strips away the noise and complexity often found in e-commerce, creating a serene space where
@@ -125,7 +133,7 @@ export default function AboutPage() {
             Start Your Collection
           </h2>
           <p className="text-lg text-wabi-300 mb-8 max-w-2xl mx-auto">
-            Join thousands of collectors who trust Wabi Market for authentic, quality trading cards.
+            Join thousands of collectors who trust kon for authentic, quality trading cards.
           </p>
           <a href="/products" className="btn-primary bg-wabi-50 text-sumi-900 hover:bg-wabi-100 inline-block">
             Browse Collection

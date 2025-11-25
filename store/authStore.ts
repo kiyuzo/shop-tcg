@@ -37,6 +37,11 @@ export const useAuthStore = create<AuthStore>()(
           
           const { token, user } = response.data
           
+          // Store token in localStorage
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('token', token)
+          }
+          
           set({
             user,
             token,
@@ -60,6 +65,11 @@ export const useAuthStore = create<AuthStore>()(
           
           const { token, user } = response.data
           
+          // Store token in localStorage
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('token', token)
+          }
+          
           set({
             user,
             token,
@@ -73,6 +83,11 @@ export const useAuthStore = create<AuthStore>()(
       },
       
       logout: () => {
+        // Clear localStorage
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('token')
+        }
+        
         set({
           user: null,
           token: null,

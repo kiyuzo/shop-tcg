@@ -1,28 +1,29 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const categories = [
   {
     name: 'Pokémon',
     slug: 'pokemon',
-    image: '🎴',
+    image: '/pokemon-logo.png',
     description: 'Classic and modern cards',
   },
   {
     name: 'Yu-Gi-Oh!',
     slug: 'yugioh',
-    image: '⚔️',
+    image: '/Yu-Gi-Oh!-logo.jpg',
     description: 'Duel monsters collection',
   },
   {
     name: 'Magic: The Gathering',
     slug: 'mtg',
-    image: '🔮',
+    image: '/Magic-The-Gathering-logo.png',
     description: 'Legendary planeswalker cards',
   },
   {
     name: 'One Piece',
     slug: 'onepiece',
-    image: '🏴‍☠️',
+    image: '/One-Piece-Logo.png',
     description: 'Pirate adventure cards',
   },
 ]
@@ -47,7 +48,15 @@ export default function Categories() {
               href={`/products?category=${category.slug}`}
               className="card p-8 text-center group transition-transform hover:-translate-y-1"
             >
-              <div className="text-6xl mb-4">{category.image}</div>
+              <div className="h-24 mb-4 flex items-center justify-center">
+                <Image 
+                  src={category.image} 
+                  alt={`${category.name} logo`} 
+                  width={120} 
+                  height={96}
+                  className="object-contain"
+                />
+              </div>
               <h3 className="text-xl font-display font-semibold text-sumi-900 mb-2 group-hover:text-sakura-600 transition-colors">
                 {category.name}
               </h3>

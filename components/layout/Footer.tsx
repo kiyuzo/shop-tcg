@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -11,11 +12,17 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-1">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-wabi-50 flex items-center justify-center">
-                <span className="text-sumi-900 font-display text-xl">侘</span>
+              <div className="w-16 h-16 flex items-center justify-center">
+                <Image 
+                  src="/fox-logo.png" 
+                  alt="kon fox logo" 
+                  width={64} 
+                  height={64}
+                  className="object-contain"
+                />
               </div>
               <span className="text-xl font-display font-semibold text-wabi-50">
-                KON
+                kon
               </span>
             </div>
             <p className="text-wabi-300 text-sm leading-relaxed">

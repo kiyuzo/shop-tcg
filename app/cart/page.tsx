@@ -84,7 +84,7 @@ export default function CartPage() {
                       {/* Price */}
                       <div className="flex items-center gap-4">
                         <span className="text-lg font-bold text-sumi-900">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          ¥{(item.price * item.quantity).toLocaleString()}
                         </span>
                         <button
                           onClick={() => removeItem(item.id)}
@@ -110,7 +110,7 @@ export default function CartPage() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-sumi-700">
                   <span>Subtotal</span>
-                  <span>${getTotalPrice().toFixed(2)}</span>
+                  <span>¥{getTotalPrice().toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between text-sumi-700">
                   <span>Shipping</span>
@@ -122,7 +122,7 @@ export default function CartPage() {
 
               <div className="flex justify-between text-lg font-bold text-sumi-900 mb-6">
                 <span>Total</span>
-                <span>${getTotalPrice().toFixed(2)}</span>
+                <span>¥{getTotalPrice().toLocaleString()}</span>
               </div>
 
               <Link href="/checkout" className="btn-primary w-full text-center block mb-4">

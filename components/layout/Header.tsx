@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { ShoppingCartIcon, UserIcon, HeartIcon, Bars3Icon, XMarkIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
 import { useCartStore } from '@/store/cartStore'
 import { useAuthStore } from '@/store/authStore'
@@ -22,11 +23,18 @@ export default function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 bg-sumi-900 flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-wabi-50 font-display text-xl">侘</span>
+            <div className="w-16 h-16 flex items-center justify-center transition-transform group-hover:scale-105">
+              <Image 
+                src="/fox-logo.png" 
+                alt="kon fox logo" 
+                width={64} 
+                height={64}
+                className="object-contain"
+                priority
+              />
             </div>
             <span className="text-2xl font-display font-semibold text-sumi-900 hidden sm:block">
-              KON
+              kon
             </span>
           </Link>
 

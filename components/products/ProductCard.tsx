@@ -2,10 +2,12 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/24/outline'
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid'
 import { useWishlistStore } from '@/store/wishlistStore'
 import { useCartStore } from '@/store/cartStore'
+import { useAuthStore } from '@/store/authStore'
 import toast from 'react-hot-toast'
 
 interface Product {
@@ -24,13 +26,21 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const router = useRouter()
   const { addItem: addToWishlist, removeItem: removeFromWishlist, isInWishlist } = useWishlistStore()
   const { addItem: addToCart } = useCartStore()
+  const { isAuthenticated } = useAuthStore()
   
   const inWishlist = isInWishlist(product._id)
   
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault()
+    
+    if (!isAuthenticated) {
+      toast.error('Please login to add items to your wishlist')
+      router.push('/login')
+      return
+    }
     
     if (inWishlist) {
       removeFromWishlist(product._id)
@@ -48,6 +58,12 @@ export default function ProductCard({ product }: ProductCardProps) {
   
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault()
+    
+    if (!isAuthenticated) {
+      toast.error('Please login to add items to your cart')
+      router.push('/login')
+      return
+    }
     
     addToCart({
       productId: product._id,
