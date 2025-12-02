@@ -59,6 +59,11 @@ export default function CartPage() {
                     </Link>
                     <p className="text-sm text-sumi-600 mb-4">
                       Condition: {item.condition}
+                      {item.stockQuantity && (
+                        <span className="ml-2 text-xs">
+                          (Stock: {item.stockQuantity})
+                        </span>
+                      )}
                     </p>
 
                     <div className="flex items-center justify-between">
@@ -75,7 +80,8 @@ export default function CartPage() {
                         </span>
                         <button
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="p-1 hover:bg-sumi-100 transition-colors"
+                          disabled={item.stockQuantity ? item.quantity >= item.stockQuantity : false}
+                          className="p-1 hover:bg-sumi-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           <PlusIcon className="w-4 h-4" />
                         </button>
@@ -84,7 +90,7 @@ export default function CartPage() {
                       {/* Price */}
                       <div className="flex items-center gap-4">
                         <span className="text-lg font-bold text-sumi-900">
-                          ¥{(item.price * item.quantity).toLocaleString()}
+                          Rp {(item.price * item.quantity).toLocaleString('id-ID')}
                         </span>
                         <button
                           onClick={() => removeItem(item.id)}
@@ -110,7 +116,7 @@ export default function CartPage() {
               <div className="space-y-3 mb-6">
                 <div className="flex justify-between text-sumi-700">
                   <span>Subtotal</span>
-                  <span>¥{getTotalPrice().toLocaleString()}</span>
+                  <span>Rp {getTotalPrice().toLocaleString('id-ID')}</span>
                 </div>
                 <div className="flex justify-between text-sumi-700">
                   <span>Shipping</span>
@@ -122,7 +128,7 @@ export default function CartPage() {
 
               <div className="flex justify-between text-lg font-bold text-sumi-900 mb-6">
                 <span>Total</span>
-                <span>¥{getTotalPrice().toLocaleString()}</span>
+                <span>Rp {getTotalPrice().toLocaleString('id-ID')}</span>
               </div>
 
               <Link href="/checkout" className="btn-primary w-full text-center block mb-4">

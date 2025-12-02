@@ -127,14 +127,14 @@ export default function AccountPage() {
                 <div className="space-y-4">
                   {orders.map((order) => (
                     <div 
-                      key={order._id}
+                      key={order.order_id}
                       className="border border-sumi-200 rounded-lg p-4 hover:border-sakura-600 transition-colors"
                     >
                       <div className="flex justify-between items-start mb-3">
                         <div>
-                          <p className="font-semibold text-sumi-900">Order #{order._id.slice(-8)}</p>
+                          <p className="font-semibold text-sumi-900">Order #{order.order_id}</p>
                           <p className="text-sm text-sumi-600">
-                            {new Date(order.createdAt).toLocaleDateString('en-US', {
+                            {new Date(order.created_at).toLocaleDateString('en-US', {
                               year: 'numeric',
                               month: 'long',
                               day: 'numeric'
@@ -142,27 +142,33 @@ export default function AccountPage() {
                           </p>
                         </div>
                         <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          order.status === 'delivered' ? 'bg-green-100 text-green-800' :
-                          order.status === 'shipped' ? 'bg-blue-100 text-blue-800' :
-                          order.status === 'processing' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-gray-100 text-gray-800'
+                          order.status === 'Shipped' ? 'bg-blue-100 text-blue-800' :
+                          order.status === 'Cancelled' ? 'bg-red-100 text-red-800' :
+                          'bg-yellow-100 text-yellow-800'
                         }`}>
-                          {order.status.charAt(0).toUpperCase() + order.status.slice(1)}
+                          {order.status}
                         </span>
                       </div>
 
                       <div className="space-y-2 mb-3">
-                        {order.orderItems?.map((item: any, idx: number) => (
+                        {order.order_items?.map((item: any, idx: number) => (
                           <div key={idx} className="flex justify-between text-sm">
-                            <span className="text-sumi-700">{item.name || 'Product'} × {item.quantity}</span>
-                            <span className="text-sumi-900 font-medium">¥{(item.price * item.quantity)?.toLocaleString()}</span>
+                            <span className="text-sumi-700">{item.product_name} × {item.quantity}</span>
+                            <span className="text-sumi-900 font-medium">Rp {(item.price_at_purchase * item.quantity)?.toLocaleString('id-ID')}</span>
                           </div>
                         ))}
                       </div>
 
-                      <div className="pt-3 border-t border-sumi-200 flex justify-between items-center">
-                        <span className="font-semibold text-sumi-900">Total</span>
-                        <span className="text-lg font-bold text-sakura-600">¥{order.totalPrice?.toLocaleString()}</span>
+                      <div className="pt-3 border-t border-sumi-200">
+                        <div className="flex justify-between items-center mb-2">
+                          <span className="text-sm text-sumi-600">Shipping Address</span>
+                        </div>
+                        <p className="text-sm text-sumi-700 mb-3">{order.shipping_address}</p>
+                        
+                        <div className="flex justify-between items-center">
+                          <span className="font-semibold text-sumi-900">Total</span>
+                          <span className="text-lg font-bold text-sakura-600">Rp {order.total_price?.toLocaleString('id-ID')}</span>
+                        </div>
                       </div>
                     </div>
                   ))}

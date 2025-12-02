@@ -9,6 +9,7 @@ export interface CartItem {
   image: string
   quantity: number
   condition: string
+  stockQuantity?: number
 }
 
 interface CartStore {
@@ -32,10 +33,18 @@ export const useCartStore = create<CartStore>()(
         )
         
         if (existingItem) {
+          const newQuantity = existingItem.quantity + item.quantity
+          const maxStock = item.stockQuantity || existingItem.stockQuantity || 999
+          
+          if (newQuantity > maxStock) {
+            // Don't add more than available stock
+            return
+          }
+          
           set({
             items: items.map((i) =>
               i.id === existingItem.id
-                ? { ...i, quantity: i.quantity + item.quantity }
+                ? { ...i, quantity: newQuantity, stockQuantity: item.stockQuantity || i.stockQuantity }
                 : i
             ),
           })
@@ -54,9 +63,15 @@ export const useCartStore = create<CartStore>()(
         if (quantity <= 0) {
           get().removeItem(id)
         } else {
+          const item = get().items.find((i) => i.id === id)
+          const maxStock = item?.stockQuantity || 999
+          
+          // Cap quantity at available stock
+          const finalQuantity = Math.min(quantity, maxStock)
+          
           set({
             items: get().items.map((i) =>
-              i.id === id ? { ...i, quantity } : i
+              i.id === id ? { ...i, quantity: finalQuantity } : i
             ),
           })
         }

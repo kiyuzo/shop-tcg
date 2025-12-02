@@ -11,14 +11,16 @@ import { useAuthStore } from '@/store/authStore'
 import toast from 'react-hot-toast'
 
 interface Product {
-  _id: string
+  product_id: number
   name: string
-  price: number
-  images: string[]
-  category: string
-  condition: string
+  image_url: string
+  set_name?: string
   rarity?: string
-  inStock: boolean
+  game?: string
+  inventory_id?: number
+  price?: number
+  stock_quantity?: number
+  condition?: string
 }
 
 interface ProductCardProps {
@@ -31,7 +33,11 @@ export default function ProductCard({ product }: ProductCardProps) {
   const { addItem: addToCart } = useCartStore()
   const { isAuthenticated } = useAuthStore()
   
-  const inWishlist = isInWishlist(product._id)
+  const productId = product.product_id.toString()
+  const inWishlist = isInWishlist(productId)
+  const inStock = (product.stock_quantity || 0) > 0
+  const price = product.price || 0
+  const imageUrl = product.image_url || '/placeholder-card.jpg'
   
   const handleWishlistToggle = (e: React.MouseEvent) => {
     e.preventDefault()
@@ -43,14 +49,14 @@ export default function ProductCard({ product }: ProductCardProps) {
     }
     
     if (inWishlist) {
-      removeFromWishlist(product._id)
+      removeFromWishlist(productId)
       toast.success('Removed from wishlist')
     } else {
       addToWishlist({
-        productId: product._id,
+        productId: productId,
         name: product.name,
-        price: product.price,
-        image: product.images[0],
+        price: price,
+        image: imageUrl,
       })
       toast.success('Added to wishlist')
     }
@@ -65,25 +71,36 @@ export default function ProductCard({ product }: ProductCardProps) {
       return
     }
     
+    if (!product.inventory_id) {
+      toast.error('This product is not available')
+      return
+    }
+    
+    if (!inStock) {
+      toast.error('This product is out of stock')
+      return
+    }
+    
     addToCart({
-      productId: product._id,
+      productId: productId,
       name: product.name,
-      price: product.price,
-      image: product.images[0],
+      price: price,
+      image: imageUrl,
       quantity: 1,
-      condition: product.condition,
+      condition: product.condition || 'Near Mint',
+      stockQuantity: product.stock_quantity,
     })
     
     toast.success('Added to cart')
   }
 
   return (
-    <Link href={`/products/${product._id}`} className="group">
+    <Link href={`/products/${product.product_id}`} className="group">
       <div className="card overflow-hidden">
         {/* Image */}
         <div className="relative aspect-[3/4] bg-wabi-100 overflow-hidden">
           <Image
-            src={product.images[0] || '/placeholder-card.jpg'}
+            src={imageUrl}
             alt={product.name}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -110,7 +127,7 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
           
           {/* Stock status */}
-          {!product.inStock && (
+          {!inStock && (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
               <span className="text-white font-medium text-lg">Out of Stock</span>
             </div>
@@ -120,7 +137,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Content */}
         <div className="p-4">
           <p className="text-xs text-sumi-500 uppercase tracking-wide mb-2">
-            {product.category}
+            {product.game || 'TCG'} {product.set_name && `• ${product.set_name}`}
           </p>
           <h3 className="font-display font-semibold text-sumi-900 mb-2 line-clamp-2 group-hover:text-sakura-600 transition-colors">
             {product.name}
@@ -128,10 +145,10 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           <div className="flex items-center justify-between mt-4">
             <span className="text-lg font-bold text-sumi-900">
-              ${product.price.toFixed(2)}
+              Rp {price.toLocaleString('id-ID')}
             </span>
             
-            {product.inStock && (
+            {inStock && (
               <button
                 onClick={handleAddToCart}
                 className="p-2 bg-sumi-900 text-wabi-50 hover:bg-sumi-800 transition-colors"
@@ -144,8 +161,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           
           <div className="mt-2 flex items-center gap-2">
             <span className="text-xs px-2 py-1 bg-wabi-100 text-sumi-700">
-              {product.condition}
+              {product.condition || 'Near Mint'}
             </span>
+            {inStock && (
+              <span className="text-xs text-sumi-500">
+                Stock: {product.stock_quantity}
+              </span>
+            )}
           </div>
         </div>
       </div>

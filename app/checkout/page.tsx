@@ -335,7 +335,7 @@ export default function CheckoutPage() {
                       <h3 className="font-medium text-sumi-900 text-sm">{item.name}</h3>
                       <p className="text-sm text-sumi-600">Qty: {item.quantity}</p>
                       <p className="text-sm font-semibold text-sumi-900">
-                        ¥{(item.price * item.quantity).toLocaleString()}
+                        Rp {(item.price * item.quantity).toLocaleString('id-ID')}
                       </p>
                     </div>
                   </div>
@@ -345,15 +345,15 @@ export default function CheckoutPage() {
               <div className="border-t border-sumi-200 pt-4 space-y-2">
                 <div className="flex justify-between text-sumi-700">
                   <span>Subtotal</span>
-                  <span>¥{getTotalPrice().toLocaleString()}</span>
+                  <span>Rp {getTotalPrice().toLocaleString('id-ID')}</span>
                 </div>
                 <div className="flex justify-between text-sumi-700">
                   <span>Shipping</span>
-                  <span>¥500</span>
+                  <span>Rp 500</span>
                 </div>
                 <div className="flex justify-between text-xl font-bold text-sumi-900 pt-2 border-t border-sumi-200">
                   <span>Total</span>
-                  <span>¥{(getTotalPrice() + 500).toLocaleString()}</span>
+                  <span>Rp {(getTotalPrice() + 500).toLocaleString('id-ID')}</span>
                 </div>
               </div>
             </div>

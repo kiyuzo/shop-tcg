@@ -116,7 +116,7 @@ export default function Footer() {
         <div className="border-t border-sumi-800 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-wabi-400 text-sm">
-              © {currentYear} Wabi Market. All rights reserved.
+              © {currentYear} Kon Market. All rights reserved.
             </p>
             <div className="flex space-x-6">
               <Link href="/privacy" className="text-wabi-400 hover:text-wabi-50 transition-colors text-sm">

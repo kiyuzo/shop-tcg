@@ -14,7 +14,7 @@ export default function FeaturedProducts() {
   useEffect(() => {
     const fetchFeatured = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/products?featured=true&limit=8`)
+        const response = await axios.get(`${API_URL}/api/products?limit=8`)
         setProducts(response.data.products)
       } catch (error) {
         console.error('Error fetching featured products:', error)
@@ -52,7 +52,7 @@ export default function FeaturedProducts() {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {products.map((product: any) => (
-            <ProductCard key={product._id} product={product} />
+            <ProductCard key={product.product_id} product={product} />
           ))}
         </div>
         
