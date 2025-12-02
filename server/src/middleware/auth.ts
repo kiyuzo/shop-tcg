@@ -1,6 +1,14 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
-import User, { IUser } from '../models/User'
+import { findUserById } from '../db/queries'
+
+export interface IUser {
+  user_id: number
+  username: string
+  email: string
+  role: string
+  created_at: Date
+}
 
 export interface AuthRequest extends Request {
   user?: IUser
@@ -17,13 +25,14 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
       // Verify token
       const decoded: any = jwt.verify(token, process.env.JWT_SECRET || 'secret')
 
-      // Get user from token
-      req.user = await User.findById(decoded.id).select('-password')
+      // Get user from token (decoded.id is user_id)
+      const user = await findUserById(decoded.id)
 
-      if (!req.user) {
+      if (!user) {
         return res.status(401).json({ message: 'User not found' })
       }
 
+      req.user = user
       next()
     } catch (error) {
       console.error(error)
@@ -37,7 +46,7 @@ export const protect = async (req: AuthRequest, res: Response, next: NextFunctio
 }
 
 export const admin = (req: AuthRequest, res: Response, next: NextFunction) => {
-  if (req.user && req.user.role === 'admin') {
+  if (req.user && req.user.role === 'Admin') {
     next()
   } else {
     res.status(403).json({ message: 'Not authorized as admin' })

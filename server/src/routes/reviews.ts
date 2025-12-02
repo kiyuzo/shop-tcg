@@ -13,7 +13,7 @@ router.post('/', protect, async (req: AuthRequest, res: Response) => {
     const { product, rating, title, comment } = req.body
 
     const existingReview = await Review.findOne({
-      user: req.user?._id,
+      user: req.user?.user_id,
       product,
     })
 
@@ -22,7 +22,7 @@ router.post('/', protect, async (req: AuthRequest, res: Response) => {
     }
 
     const review = await Review.create({
-      user: req.user?._id,
+      user: req.user?.user_id,
       product,
       rating,
       title,

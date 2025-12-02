@@ -1,26 +1,33 @@
-import mongoose, { Document, Schema } from 'mongoose'
-import bcrypt from 'bcryptjs'
-
-export interface IUser extends Document {
-  name: string
+// PostgreSQL User Interface
+export interface IUser {
+  user_id: number
+  username: string
   email: string
-  password: string
-  role: 'user' | 'admin'
-  avatar?: string
-  address?: {
-    street: string
-    city: string
-    state: string
-    zipCode: string
-    country: string
-  }
-  phone?: string
-  createdAt: Date
-  updatedAt: Date
-  comparePassword(candidatePassword: string): Promise<boolean>
+  password_hash?: string
+  role: string
+  created_at: Date
 }
 
-const userSchema = new Schema<IUser>(
+export interface UserCreateInput {
+  username: string
+  email: string
+  password: string
+  role?: string
+}
+
+export interface UserResponse {
+  user_id: number
+  username: string
+  email: string
+  role: string
+  created_at: Date
+}
+
+export default {
+  IUser,
+  UserCreateInput,
+  UserResponse,
+}
   {
     name: {
       type: String,

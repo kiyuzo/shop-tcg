@@ -1,10 +1,13 @@
 import express from 'express'
-import mongoose from 'mongoose'
 import cors from 'cors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import rateLimit from 'express-rate-limit'
+
+// Import database connection
+import { testConnection } from './db/pool'
+import { checkTablesExist } from './db/init'
 
 // Import routes
 import authRoutes from './routes/auth'
@@ -67,21 +70,27 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
   })
 })
 
-// MongoDB connection
-mongoose
-  .connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/tcg-ecommerce')
-  .then(() => {
-    console.log('✓ MongoDB connected successfully')
+// PostgreSQL connection
+const startServer = async () => {
+  try {
+    // Test database connection
+    await testConnection()
+    
+    // Check existing tables
+    await checkTablesExist()
     
     // Start server
     app.listen(PORT, () => {
       console.log(`✓ Server running on port ${PORT}`)
       console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`)
     })
-  })
-  .catch((err) => {
-    console.error('✗ MongoDB connection error:', err)
+  } catch (err) {
+    console.error('✗ Failed to start server:', err)
     process.exit(1)
-  })
+  }
+}
+
+// Start the server
+startServer()
 
 export default app

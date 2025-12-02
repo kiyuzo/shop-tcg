@@ -29,7 +29,7 @@ router.post('/', protect, async (req: AuthRequest, res: Response) => {
     }
 
     const order = new Order({
-      user: req.user?._id,
+      user: req.user?.user_id,
       orderItems,
       shippingAddress,
       paymentMethod,
@@ -69,8 +69,8 @@ router.get('/:id', protect, async (req: AuthRequest, res: Response) => {
     if (order) {
       // Check if order belongs to user or user is admin
       if (
-        order.user._id.toString() === req.user?._id.toString() ||
-        req.user?.role === 'admin'
+        order.user._id.toString() === req.user?.user_id.toString() ||
+        req.user?.role === 'Admin'
       ) {
         res.json(order)
       } else {
@@ -89,7 +89,7 @@ router.get('/:id', protect, async (req: AuthRequest, res: Response) => {
 // @access  Private
 router.get('/user/my-orders', protect, async (req: AuthRequest, res: Response) => {
   try {
-    const orders = await Order.find({ user: req.user?._id }).sort({ createdAt: -1 })
+    const orders = await Order.find({ user: req.user?.user_id }).sort({ createdAt: -1 })
     res.json(orders)
   } catch (error: any) {
     res.status(500).json({ message: error.message })
